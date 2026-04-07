@@ -1,0 +1,36 @@
+apiVersion: deployments.plural.sh/v1alpha1
+kind: InfrastructureStack
+metadata:
+  name: core-infra
+spec:
+  name: core-infra
+  detach: false
+  type: TERRAFORM
+  approval: true
+  manageState: true
+  actor: console@plural.sh
+  repositoryRef:
+    name: infra
+    namespace: infra
+  clusterRef:
+    name: mgmt
+    namespace: infra
+  variables:
+    project: [[ .Project ]]
+    region: [[ .Region ]]
+    cluster_name: [[ .Cluster ]]
+  [[ if eq .Provider "azure" ]]
+    resource_group_name: [[ .Project ]]
+    network_name: [[ .Cluster ]]-network
+    subscription_id: [[ .Context.SubscriptionId ]]
+    tenant_id: [[ .Context.TenantId ]]
+    client_id:  {{ .StacksIdentity }}
+  jobSpec:
+    namespace: plrl-deploy-operator
+    labels:
+      azure.workload.identity/use: "true"
+    serviceAccount: "stacks"
+  [[ end ]]
+  git:
+    ref: main
+    folder: terraform/core-infra

@@ -1,0 +1,14 @@
+installCRDs: true
+serviceAccount:
+  name: cert-manager
+  annotations:
+    plural.sh/dummy: 'ignore'
+    # eks.amazonaws.com/role-arn: "arn:aws:iam::ACCOUNT-ID:role/plrl-console-eks-certmanager-extdns" # uncomment and update for aws
+    # azure.workload.identity/client-id: XXXXXXXX-XXX-XXXX-XXXX-XXXXXXXXXXXX # uncomment and update for azure
+
+securityContext:
+  fsGroup: 1000
+  runAsNonRoot: true
+
+podLabels:
+  azure.workload.identity/use: "true"

@@ -1,0 +1,15 @@
+global:
+  commonLabels:
+    azure.workload.identity/use: "true"
+
+installCRDs: true
+serviceAccount:
+  name: cert-manager
+  annotations:
+    eks.amazonaws.com/role-arn: {{ cluster.metadata.iam.cert_manager }}
+    azure.workload.identity/client-id: {{ cluster.metadata.iam.cert_manager }}
+    iam.gke.io/gcp-service-account: {{ cluster.metadata.iam.cert_manager }}
+
+securityContext:
+  fsGroup: 1000
+  runAsNonRoot: true

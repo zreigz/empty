@@ -1,0 +1,10 @@
+clusterName: {{ cluster.handle }}
+createIngressClassResource: false
+vpcId: {{ cluster.metadata.vpc_id }}
+
+serviceAccount:
+  create: true
+  name: aws-load-balancer-controller-sa
+  annotations:
+    client.lifecycle.config.k8s.io/deletion: detach
+    eks.amazonaws.com/role-arn: {{ cluster.metadata.iam.load_balancer }}

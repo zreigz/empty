@@ -1,0 +1,27 @@
+ownerEmail: {{ configuration.ownerEmail }}
+
+
+external-dns:
+  extraArgs:
+    plural-cluster: lukasz
+    plural-provider: byok
+  domainFilters:
+  - lukasz.onplural.sh
+
+dnsSolver: 
+  webhook:
+    groupName: acme.plural.sh
+    solverName: plural-solver
+    config:
+      cluster: lukasz
+      provider: byok
+
+pluralToken: {{ configuration.pluralToken }}
+
+acmeEAB:
+  kid: {{ configuration.acmeEABKid }}
+  secret: {{ configuration.acmeEABSecret }}
+
+
+
+

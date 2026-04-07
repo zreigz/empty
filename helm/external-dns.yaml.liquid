@@ -1,0 +1,41 @@
+enabled: true
+
+image:
+  repository: bitnamilegacy/external-dns
+
+{% if cluster.distro == "EKS" %}
+provider: aws
+{% endif %}
+{% if cluster.distro == "AKS" %}
+provider: azure
+{% endif %}
+{% if cluster.distro == "GKE" %}
+provider: google
+{% endif %}
+
+txtOwnerId: plrl-{{ cluster.handle }} # templating in the cluster handle, which is unique, to be the external-dns owner id
+
+policy: sync
+
+aws:
+  region: ~
+
+domainFilters:
+- {{ cluster.metadata.dns_zone }} # check terraform/modules/clusters/aws/plural.tf for where this is set
+
+{% if cluster.distro == "AKS" %}
+azure:
+  useWorkloadIdentityExtension: true
+  resourceGroup: {{ cluster.metadata.resource_group_name }}
+  tenantId: {{ cluster.metadata.tenant_id }}
+  subscriptionId: {{ cluster.metadata.subscription_id }}
+
+podLabels:
+  azure.workload.identity/use: "true"
+{% endif %}
+
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: {{ cluster.metadata.iam.external_dns }}
+    iam.gke.io/gcp-service-account: {{ cluster.metadata.iam.external_dns }}
+    azure.workload.identity/client-id: {{ cluster.metadata.iam.external_dns }}

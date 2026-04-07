@@ -1,0 +1,34 @@
+apiVersion: deployments.plural.sh/v1alpha1
+kind: InfrastructureStack
+metadata:
+  name: cluster-{{ context.name }}
+spec:
+  name: cluster-{{ context.name }}
+  detach: false
+  type: TERRAFORM
+  approval: true
+  manageState: true
+  actor: console@plural.sh
+  configuration:
+    version: '1.8'
+  repositoryRef:
+    name: infra
+    namespace: infra
+  clusterRef:
+    name: mgmt
+    namespace: infra
+  variables:
+    cluster: {{ context.name }}
+    fleet: {{ context.fleet }}
+    tier: {{ context.tier }}
+  {% if context.cloud == 'azure' %}
+    resource_group_name: {{ context.resourceGroup }}
+  jobSpec:
+    namespace: plrl-deploy-operator
+    labels:
+      azure.workload.identity/use: "true"
+    serviceAccount: "stacks"
+  {% endif %}
+  git:
+    ref: main
+    folder: terraform/modules/clusters/{{ context.cloud }}
