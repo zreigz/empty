@@ -24,7 +24,7 @@ spec:
     network_name: [[ .Cluster ]]-network
     subscription_id: [[ .Context.SubscriptionId ]]
     tenant_id: [[ .Context.TenantId ]]
-    client_id:  
+    client_id:  {{ .StacksIdentity }}
   jobSpec:
     namespace: plrl-deploy-operator
     labels:

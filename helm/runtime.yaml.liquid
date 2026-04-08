@@ -3,17 +3,17 @@ ownerEmail: {{ configuration.ownerEmail }}
 
 external-dns:
   extraArgs:
-    plural-cluster: lukasz
+    plural-cluster: lukasz-1
     plural-provider: byok
   domainFilters:
-  - lukasz.test
+  - ingress.local
 
 dnsSolver: 
   webhook:
     groupName: acme.plural.sh
     solverName: plural-solver
     config:
-      cluster: lukasz
+      cluster: lukasz-1
       provider: byok
 
 pluralToken: {{ configuration.pluralToken }}
