@@ -4,7 +4,7 @@ metadata:
   name: global
   namespace: plrl-deploy-operator
 spec:
-  managementRepo: 
+  managementRepo: zreigz/empty
 
   stacks:
     jobSpec:
