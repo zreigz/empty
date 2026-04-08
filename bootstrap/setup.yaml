@@ -4,7 +4,7 @@ metadata:
   name: infra
   namespace: infra
 spec:
-  url: [[ .RepoUrl ]]
+  url: 
 ---
 apiVersion: deployments.plural.sh/v1alpha1
 kind: Cluster

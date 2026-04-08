@@ -7,7 +7,7 @@ spec:
   namespace: plural-runtime
   git:
     folder: helm
-    ref: [[ or .Context.Branch "main" ]]
+    ref: main
   repositoryRef:
     kind: GitRepository
     name: infra

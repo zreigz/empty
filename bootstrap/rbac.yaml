@@ -8,7 +8,7 @@ spec:
     namespace: rbac
     git:
       folder: services/rbac
-      ref: [[ or .Context.Branch "main" ]]
+      ref: main
     repositoryRef:
       kind: GitRepository
       name: infra

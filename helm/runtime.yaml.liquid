@@ -3,7 +3,7 @@ ownerEmail: {{ configuration.ownerEmail }}
 
 external-dns:
   extraArgs:
-    plural-cluster: lukasz-3
+    plural-cluster: lukasz
     plural-provider: byok
   domainFilters:
   - ingress.local
@@ -13,7 +13,7 @@ dnsSolver:
     groupName: acme.plural.sh
     solverName: plural-solver
     config:
-      cluster: lukasz-3
+      cluster: lukasz
       provider: byok
 
 pluralToken: {{ configuration.pluralToken }}
