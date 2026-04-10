@@ -16,8 +16,8 @@ spec:
     name: mgmt
     namespace: infra
   variables:
-    project: default
-    region: default
+    project: 312272277431
+    region: eu-west-1
     cluster_name: lukasz
   
   git:

@@ -1,7 +1,13 @@
-// BYOK – the cluster already exists externally, so the mgmt module is just a
-// stub that provides the outputs expected by console.tf without provisioning anything.
+variable "deletion_protection" {
+    type    = bool
+    default = true
+}
+
 module "mgmt" {
-  source = "./cluster"
-  db_url = "postgres://postgres:mysecretpassword@my-postgres-postgresql.default.svc.cluster.local:5432/postgres"
+    source        = "./cluster"
+    cluster_name  = "lukasz"
+    admin_arn = "arn:aws:iam::312272277431:role/aws-reserved/sso.amazonaws.com/us-east-2/AWSReservedSSO_AdministratorAccess_63ff4a47c5786193"
+    create_db     = true
+    deletion_protection = "${var.deletion_protection}"
 }
 
